@@ -6,6 +6,9 @@ extern crate logger;
 
 extern crate simplelog;
 
+#[macro_use]
+extern crate serde_derive;
+
 mod controllers;
 
 use iron::prelude::*;
