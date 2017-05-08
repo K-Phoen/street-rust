@@ -1,0 +1,11 @@
+[package]
+name = "street-rust"
+version = "0.1.0"
+authors = ["Kévin Gomez <contact@kevingomez.fr>"]
+
+[dependencies]
+iron = "0.5.*"
+router = "0.5.*"
+logger = "0.3.*"
+log = "0.3.*"
+simplelog = "0.4.2"
