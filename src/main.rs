@@ -6,13 +6,16 @@ extern crate logger;
 
 extern crate simplelog;
 
+mod controllers;
+
 use iron::prelude::*;
-use iron::status;
 use logger::Logger;
 use router::Router;
 
 use simplelog::{Config, TermLogger, WriteLogger, CombinedLogger, LogLevelFilter};
 use std::fs::File;
+
+use controllers::MuralsController;
 
 fn main() {
     CombinedLogger::init(
@@ -25,8 +28,7 @@ fn main() {
     let mut router = Router::new();
     let (logger_before, logger_after) = Logger::new(None);
 
-    router.get("/", handler, "index");
-    router.get("/:query", handler, "query");
+    router.get("/murals", MuralsController::list, "murals_list");
 
     let mut chain = Chain::new(router);
 
@@ -36,10 +38,6 @@ fn main() {
     // Link logger_after as your *last* after middleware.
     chain.link_after(logger_after);
 
+    info!("Listening on localhost:3000");
     Iron::new(chain).http("localhost:3000").unwrap();
-
-    fn handler(req: &mut Request) -> IronResult<Response> {
-        let ref query = req.extensions.get::<Router>().unwrap().find("query").unwrap_or("/");
-        Ok(Response::with((status::Ok, *query)))
-    }
 }
