@@ -6,16 +6,25 @@ use iron::prelude::*;
 use iron::status;
 
 #[derive(Serialize, Deserialize, Debug)]
-struct Point {
-    x: i32,
-    y: i32,
+struct Coordinates {
+    lat: f32,
+    long: f32,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+struct Mural {
+    coord: Coordinates,
+    title: String,
 }
 
 pub fn list(_ : &mut Request) -> IronResult<Response> {
-    let point = Point { x: 1, y: 2 };
+    let mural = Mural {
+        coord: Coordinates { lat: 5.55, long: 6.66 },
+        title: String::from("Some awesome mural")
+    };
 
     // Convert the Point to a JSON string.
-    let serialized = serde_json::to_string(&point).unwrap();
+    let serialized = serde_json::to_string(&mural).unwrap();
 
     Ok(Response::with((ContentType::json().0, status::Ok, serialized)))
 }
