@@ -2,7 +2,7 @@ extern crate serde;
 extern crate serde_json;
 
 use iron::headers::ContentType;
-use iron::prelude::*;
+use iron::prelude::{IronResult, Request, Response};
 use iron::status;
 
 #[derive(Serialize, Deserialize, Debug)]

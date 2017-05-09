@@ -11,7 +11,7 @@ extern crate serde_derive;
 
 mod controllers;
 
-use iron::prelude::*;
+use iron::prelude::{Chain, Iron};
 use logger::Logger;
 use router::Router;
 
