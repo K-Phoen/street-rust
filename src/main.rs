@@ -18,8 +18,6 @@ use router::Router;
 use simplelog::{Config, TermLogger, WriteLogger, CombinedLogger, LogLevelFilter};
 use std::fs::File;
 
-use controllers::MuralsController;
-
 fn main() {
     CombinedLogger::init(
         vec![
@@ -31,7 +29,7 @@ fn main() {
     let mut router = Router::new();
     let (logger_before, logger_after) = Logger::new(None);
 
-    router.get("/murals", MuralsController::list, "murals_list");
+    router.get("/murals", controllers::murals::list, "murals_list");
 
     let mut chain = Chain::new(router);
 
